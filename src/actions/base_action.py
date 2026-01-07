@@ -130,10 +130,10 @@ class BaseAction(ABC):
         
         # Obter controle
         if action.control:
+            control_type = action.class_type.capitalize() if action.class_type else None
             # Tentar por auto_id primeiro
             try:
-                control_type = action.class_type.capitalize() if action.class_type else None
-                control = window.child_window(auto_id=action.control, control_type=control_type)
+                control = window.child_window(auto_id=action.control)
                 if control.exists():
                     return control
             except Exception as e:
@@ -141,7 +141,7 @@ class BaseAction(ABC):
             
             # Tentar por title
             try:
-                control = window.child_window(title=action.control, control_type=action.class_type.capitalize())
+                control = window.child_window(title=action.control)
                 if control.exists():
                     return control
             except Exception:
