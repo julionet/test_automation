@@ -25,48 +25,7 @@
               "description": "Aguardar aplicação carregar completamente",
               "duration": 2
             },
-            {
-              "type": "screenshot",
-              "description": "Capturar tela inicial"
-            },
-            {
-              "type": "click",
-              "description": "Clicar no botão Clique",
-              "control": "button1",
-              "window_title": "Principal",
-              "screenshot_on_success": true
-            },
-            {
-              "type": "type_text",
-              "description": "Alterar o texto do campo de edição",
-              "control": "textBox1",
-              "window_title": "Principal",
-              "value": "Texto alterado pelo teste automatizado.",
-              "screenshot_on_success": true
-            },
-            {
-              "type": "click",
-              "description": "Clicar no botão 1",
-              "control": "simpleButton1",
-              "window_title": "Principal",
-              "screenshot_on_success": true
-            },
-            {
-              "type": "type_text",
-              "description": "Alterar o texto do campo de edição text edit",
-              "control": "textEdit1",
-              "window_title": "Principal",
-              "value": "Texto alterado pelo teste automatizado.",
-              "screenshot_on_success": true
-            },
-            {
-              "type": "type_text",
-              "description": "Selecionar item do combo box",
-              "control": "comboBoxEdit1",
-              "window_title": "Principal",
-              "value": "Item2",
-              "screenshot_on_success": true
-            },
+            
             {
               "type": "click",
               "description": "Clicar no check edit",
@@ -75,11 +34,25 @@
               "screenshot_on_success": true
             },
             {
-              "type": "click",
-              "description": "Clicar no botão de show",
+              "type": "click_modal",
+              "description": "Abrir nova tela",
               "control": "button2",
+              "value": "Detalhe",
               "window_title": "Principal",
+              "duration": 1
+            },
+            {
+              "type": "read_text",
+              "description": "Ler o texto do label",
+              "control": "labelControl1",
+              "window_title": "Detalhe",
+              "value": "Nova mensagem de teste",
               "screenshot_on_success": true
+            },
+            {
+              "type": "close_dialog",
+              "description": "Fechar a tela de detalhe",
+              "window_title": "Detalhe"
             }
           ]
         }
