@@ -1,0 +1,89 @@
+{
+  "version": "1.0.0",
+  "application": {
+    "name": "Sistema App",
+    "path": "C:\\Users\\julio\\source\\repos\\App\\App\\bin\\Debug\\app.exe",
+    "arguments": "",
+    "startup_delay": 2,
+    "backend": "uia",
+    "timeout": 10
+  },
+  "test_suites": [
+    {
+      "name": "Testes Básicos do Sistema App",
+      "description": "Suite de testes para verificar funcionalidades básicas do Sistema App",
+      "test_cases": [
+        {
+          "id": "TC001",
+          "name": "Teste de botão Clique",
+          "description": "Verifica se é clicar no botão Clique do Sistema App",
+          "enabled": true,
+          "tags": ["botão", "clique"],
+          "actions": [
+            {
+              "type": "wait",
+              "description": "Aguardar aplicação carregar completamente",
+              "duration": 2
+            },
+            {
+              "type": "screenshot",
+              "description": "Capturar tela inicial"
+            },
+            {
+              "type": "click",
+              "description": "Clicar no botão Clique",
+              "control": "button1",
+              "window_title": "Principal",
+              "screenshot_on_success": true
+            },
+            {
+              "type": "type_text",
+              "description": "Alterar o texto do campo de edição",
+              "control": "textBox1",
+              "window_title": "Principal",
+              "value": "Texto alterado pelo teste automatizado.",
+              "screenshot_on_success": true
+            },
+            {
+              "type": "click",
+              "description": "Clicar no botão 1",
+              "control": "simpleButton1",
+              "window_title": "Principal",
+              "screenshot_on_success": true
+            },
+            {
+              "type": "type_text",
+              "description": "Alterar o texto do campo de edição text edit",
+              "control": "textEdit1",
+              "window_title": "Principal",
+              "value": "Texto alterado pelo teste automatizado.",
+              "screenshot_on_success": true
+            },
+            {
+              "type": "type_text",
+              "description": "Selecionar item do combo box",
+              "control": "comboBoxEdit1",
+              "window_title": "Principal",
+              "value": "Item2",
+              "screenshot_on_success": true
+            },
+            {
+              "type": "click",
+              "description": "Clicar no check edit",
+              "control": "checkEdit1",
+              "window_title": "Principal",
+              "screenshot_on_success": true
+            },
+            {
+              "type": "click",
+              "description": "Clicar no botão de show",
+              "control": "button2",
+              "window_title": "Principal",
+              "screenshot_on_success": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

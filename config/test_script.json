@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
   "application": {
-    "name": "Notepad",
-    "path": "C:\\Windows\\System32\\notepad.exe",
+    "name": "Sistema Teste",
+    "path": "C:\\Users\\julio\\source\\repos\\App\\App\\bin\\Debug\\app.exe",
     "arguments": "",
     "startup_delay": 2,
     "backend": "uia",
@@ -10,13 +10,13 @@
   },
   "test_suites": [
     {
-      "name": "Testes Básicos do Notepad",
-      "description": "Suite de testes para verificar funcionalidades básicas do Notepad",
+      "name": "Testes Básicos do Sistema Teste",
+      "description": "Suite de testes para verificar funcionalidades básicas do Sistema Teste",
       "test_cases": [
         {
           "id": "TC001",
           "name": "Teste de Digitação",
-          "description": "Verifica se é possível digitar texto no Notepad",
+          "description": "Verifica se é possível digitar texto no Sistema Teste",
           "enabled": true,
           "tags": ["basico", "edicao"],
           "actions": [

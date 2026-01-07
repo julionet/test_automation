@@ -33,6 +33,7 @@ class Action:
     """Ação a ser executada no teste."""
     action_type: str
     description: str
+    class_type: Optional[str] = None
     control: Optional[str] = None
     window_title: Optional[str] = None
     value: Optional[str] = None
@@ -48,6 +49,7 @@ class Action:
         return Action(
             action_type=data["type"],
             description=data["description"],
+            class_type=data.get("class"),
             control=data.get("control"),
             window_title=data.get("window_title"),
             value=data.get("value"),

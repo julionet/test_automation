@@ -9,6 +9,12 @@ from pywinauto import Application as PyWinAutoApp
 from pywinauto.findwindows import ElementNotFoundError
 from pywinauto.timings import TimeoutError
 
+try:
+    import win32gui
+    import win32con
+    HAS_WIN32 = True
+except ImportError:
+    HAS_WIN32 = False
 
 class AppManager:
     """Gerencia o ciclo de vida de aplicações Windows."""
@@ -104,9 +110,16 @@ class AppManager:
         
         try:
             if title:
-                return self.app.window(title=title, **kwargs)
+                #return self.app.window(title=title, **kwargs)
+                window = self.app.window(title_re=f".*{title}.*")
             else:
-                return self.app.top_window(**kwargs)
+                window = self.app.top_window(**kwargs)
+
+            if window.is_minimized():
+                window.restore()
+            window.set_focus()
+
+            return window
         except ElementNotFoundError as e:
             raise Exception(f"Janela não encontrada: {str(e)}")
     
@@ -184,3 +197,55 @@ class AppManager:
         if self.process:
             return self.process.poll() is None
         return False
+
+    def bring_to_foreground(self, window=None):
+        """
+        Traz a janela para o primeiro plano.
+        
+        Args:
+            window: Janela específica (opcional). Se None, usa top_window.
+        """
+        try:
+            if window is None:
+                if not self.app:
+                    raise RuntimeError("Aplicação não iniciada ou conectada")
+                window = self.app.top_window()
+            
+            # Método 1: set_focus do pywinauto
+            try:
+                window.set_focus()
+                time.sleep(0.2)
+            except Exception:
+                pass
+            
+            # Método 2: Restaurar janela se minimizada
+            try:
+                if hasattr(window, 'is_minimized') and window.is_minimized():
+                    window.restore()
+                    time.sleep(0.2)
+            except Exception:
+                pass
+            
+            # Método 3: Usar win32gui se disponível (mais efetivo)
+            if HAS_WIN32:
+                try:
+                    hwnd = window.handle
+                    # Mostrar e ativar a janela
+                    win32gui.ShowWindow(hwnd, win32con.SW_SHOW)
+                    win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
+                    win32gui.SetForegroundWindow(hwnd)
+                    win32gui.BringWindowToTop(hwnd)
+                    time.sleep(0.2)
+                except Exception:
+                    pass
+            
+            # Método 4: Usar wrapper do pywinauto
+            try:
+                window.wrapper_object().set_focus()
+                time.sleep(0.1)
+            except Exception:
+                pass
+            
+        except Exception as e:
+            # Não falhar criticamente, apenas registrar aviso
+            pass

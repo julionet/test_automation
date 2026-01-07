@@ -20,6 +20,8 @@ def main():
     parser.add_argument(
         'script',
         type=str,
+        default='config/test_app_script.json',
+        nargs='?',
         help='Caminho para o arquivo JSON com o script de teste'
     )
     parser.add_argument(

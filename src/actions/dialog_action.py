@@ -129,6 +129,16 @@ class ScreenshotAction(BaseAction):
         Returns:
             Caminho do screenshot
         """
+        # NOVO: Garantir que está em primeiro plano antes do screenshot
+        try:
+            if action.window_title:
+                window = self.app_manager.get_window(title=action.window_title)
+                self.app_manager.bring_to_foreground(window)
+            else:
+                self.app_manager.bring_to_foreground()
+        except Exception as e:
+            self.logger.warning(f"Aviso ao trazer janela para frente: {e}")
+        
         screenshot_path = self.screenshot_manager.capture_full_screen(
             prefix="manual_screenshot"
         )

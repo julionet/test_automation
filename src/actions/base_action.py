@@ -49,6 +49,9 @@ class BaseAction(ABC):
         self.logger.info(f"Executando ação: {action.description}")
         
         try:
+            # NOVO: Trazer aplicação para primeiro plano antes de executar
+            self._bring_app_to_foreground(action)
+            
             # Executar a ação específica
             read_value = self._execute_action(action)
             status = TestStatus.PASSED
@@ -56,6 +59,8 @@ class BaseAction(ABC):
             
             # Screenshot de sucesso se configurado
             if action.screenshot_on_success:
+                # NOVO: Garantir que está em primeiro plano antes do screenshot
+                self._bring_app_to_foreground(action)
                 screenshot_path = self.screenshot_manager.capture_full_screen(
                     prefix=f"success_{action.action_type}"
                 )
@@ -68,6 +73,8 @@ class BaseAction(ABC):
             # Screenshot de falha se configurado
             if action.screenshot_on_failure:
                 try:
+                    # NOVO: Garantir que está em primeiro plano antes do screenshot
+                    self._bring_app_to_foreground(action)
                     screenshot_path = self.screenshot_manager.capture_full_screen(
                         prefix=f"failure_{action.action_type}"
                     )
@@ -125,15 +132,16 @@ class BaseAction(ABC):
         if action.control:
             # Tentar por auto_id primeiro
             try:
-                control = window.child_window(auto_id=action.control, timeout=timeout)
+                control_type = action.class_type.capitalize() if action.class_type else None
+                control = window.child_window(auto_id=action.control, control_type=control_type)
                 if control.exists():
                     return control
-            except Exception:
+            except Exception as e:
                 pass
             
             # Tentar por title
             try:
-                control = window.child_window(title=action.control, timeout=timeout)
+                control = window.child_window(title=action.control, control_type=action.class_type.capitalize())
                 if control.exists():
                     return control
             except Exception:
@@ -141,7 +149,7 @@ class BaseAction(ABC):
             
             # Tentar por class_name
             try:
-                control = window.child_window(class_name=action.control, timeout=timeout)
+                control = window.child_window(class_name=action.control)
                 if control.exists():
                     return control
             except Exception:
@@ -150,3 +158,23 @@ class BaseAction(ABC):
             raise Exception(f"Controle não encontrado: {action.control}")
         
         return window
+
+    def _bring_app_to_foreground(self, action: Action):
+        """
+        Traz a aplicação para primeiro plano antes da ação.
+        
+        Args:
+            action: Definição da ação
+        """
+        try:
+            # Se tiver window_title específico, trazer aquela janela
+            if action.window_title:
+                window = self.app_manager.get_window(title=action.window_title)
+                self.app_manager.bring_to_foreground(window)
+            else:
+                # Caso contrário, trazer janela principal
+                self.app_manager.bring_to_foreground()
+            
+            self.logger.debug("Aplicação trazida para primeiro plano")
+        except Exception as e:
+            self.logger.warning(f"Não foi possível trazer aplicação para primeiro plano: {e}")
