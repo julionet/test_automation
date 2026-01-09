@@ -109,11 +109,11 @@ class AppManager:
             raise RuntimeError("Aplicação não iniciada ou conectada")
         
         try:
-            if title:
-                #return self.app.window(title=title, **kwargs)
-                window = self.app.window(title_re=f".*{title}.*")
-            else:
-                window = self.app.top_window(**kwargs)
+            #if title:
+            #    window = self.app.window(title_re=title)
+                #window = self.app.window(title_re=f".*{title}.*")
+            #else:
+            window = self.app.top_window()
 
             if window.is_minimized():
                 window.restore()

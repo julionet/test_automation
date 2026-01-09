@@ -14,10 +14,8 @@ from src.actions.dialog_action import (
     CloseWindowAction,
     ScreenshotAction
 )
-from src.actions.click_async_action import (
-    ClickAsyncAction,
+from src.actions.click_wait_action import (
     ClickAndWaitAction,
-    ClickModalAction
 )
 from src.core.app_manager import AppManager
 from src.core.screenshot_manager import ScreenshotManager
@@ -36,9 +34,7 @@ class ActionFactory:
         "verify_text": VerifyTextAction,
         "close_window": CloseWindowAction,
         "screenshot": ScreenshotAction,
-        "click_async": ClickAsyncAction,
-        "click_and_wait": ClickAndWaitAction,
-        "click_modal": ClickModalAction
+        "click_and_wait": ClickAndWaitAction
     }
     
     @classmethod

@@ -4,7 +4,6 @@ Classe base para ações de teste.
 from abc import ABC, abstractmethod
 from typing import Optional, Any
 from datetime import datetime
-import time
 
 from src.models.test_script import Action
 from src.models.test_result import ActionResult, TestStatus
@@ -54,16 +53,32 @@ class BaseAction(ABC):
             
             # Executar a ação específica
             read_value = self._execute_action(action)
-            status = TestStatus.PASSED
-            self.logger.info(f"✓ Ação concluída com sucesso")
-            
-            # Screenshot de sucesso se configurado
-            if action.screenshot_on_success:
-                # NOVO: Garantir que está em primeiro plano antes do screenshot
-                self._bring_app_to_foreground(action)
-                screenshot_path = self.screenshot_manager.capture_full_screen(
-                    prefix=f"success_{action.action_type}"
-                )
+            if read_value == action.value:
+                status = TestStatus.PASSED
+                self.logger.info(f"✓ Valor lido corresponde ao esperado: '{read_value}'")
+
+                 # Screenshot de sucesso se configurado
+                if action.screenshot_on_success:
+                    # NOVO: Garantir que está em primeiro plano antes do screenshot
+                    self._bring_app_to_foreground(action)
+                    screenshot_path = self.screenshot_manager.capture_full_screen(
+                        prefix=f"success_{action.action_type}"
+                    )
+            else:
+                status = TestStatus.FAILED
+                error_message = f"Valor lido não corresponde ao esperado: {action.value}, lido: {read_value}"
+                self.logger.error(f"✗ Ação falhou: {error_message}")
+                
+                # Screenshot de falha se configurado
+                if action.screenshot_on_failure:
+                    try:
+                        # NOVO: Garantir que está em primeiro plano antes do screenshot
+                        self._bring_app_to_foreground(action)
+                        screenshot_path = self.screenshot_manager.capture_full_screen(
+                            prefix=f"failure_{action.action_type}"
+                        )
+                    except Exception as screenshot_error:
+                        self.logger.warning(f"Falha ao capturar screenshot: {screenshot_error}")           
                 
         except Exception as e:
             status = TestStatus.FAILED
@@ -130,7 +145,6 @@ class BaseAction(ABC):
         
         # Obter controle
         if action.control:
-            control_type = action.class_type.capitalize() if action.class_type else None
             # Tentar por auto_id primeiro
             try:
                 control = window.child_window(auto_id=action.control)

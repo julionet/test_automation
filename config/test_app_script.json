@@ -24,8 +24,7 @@
               "type": "wait",
               "description": "Aguardar aplicação carregar completamente",
               "duration": 2
-            },
-            
+            },            
             {
               "type": "click",
               "description": "Clicar no check edit",
@@ -34,7 +33,7 @@
               "screenshot_on_success": true
             },
             {
-              "type": "click_modal",
+              "type": "click_and_wait",
               "description": "Abrir nova tela",
               "control": "button2",
               "value": "Detalhe",

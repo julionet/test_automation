@@ -3,7 +3,9 @@ Ponto de entrada da aplicação de testes automatizados.
 """
 import sys
 import argparse
-from pathlib import Path
+
+import subprocess
+import sys
 
 from src.utils.logger import TestLogger
 from src.utils.json_validator import JsonValidator
@@ -64,7 +66,6 @@ def main():
         import traceback
         logger.debug(traceback.format_exc())
         sys.exit(3)
-
 
 if __name__ == "__main__":
     main()
