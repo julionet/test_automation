@@ -16,9 +16,13 @@ class ReadAction(BaseAction):
         
         Args:
             action: Definição da ação
+            - value: Texto esperado para validação (opcional)
             
         Returns:
             Texto lido do controle
+            
+        Raises:
+            ValueError: Se o texto lido for diferente do esperado (action.value)
         """
         control = self._get_control(action)
         

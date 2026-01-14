@@ -110,8 +110,8 @@ class AppManager:
         
         try:
             #if title:
-            #    window = self.app.window(title_re=title)
-                #window = self.app.window(title_re=f".*{title}.*")
+                #window = self.app.window(title_re=title)
+            #    window = self.app.window(title_re=f".*{title}.*")
             #else:
             window = self.app.top_window()
 

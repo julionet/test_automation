@@ -3,8 +3,6 @@ Ponto de entrada da aplicação de testes automatizados.
 """
 import sys
 import argparse
-
-import subprocess
 import sys
 
 from src.utils.logger import TestLogger

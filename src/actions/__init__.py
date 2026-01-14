@@ -5,9 +5,11 @@ from typing import Dict, Type
 
 from src.actions.base_action import BaseAction
 from src.actions.click_action import ClickAction
+from src.actions.double_click_action import DoubleClickAction
 from src.actions.type_action import TypeAction
 from src.actions.read_action import ReadAction
 from src.actions.wait_action import WaitAction
+from src.actions.clear_action import ClearAction
 from src.actions.dialog_action import (
     CloseDialogAction, 
     VerifyTextAction, 
@@ -27,9 +29,11 @@ class ActionFactory:
     
     _action_map: Dict[str, Type[BaseAction]] = {
         "click": ClickAction,
+        "double_click": DoubleClickAction,
         "type_text": TypeAction,
         "read_text": ReadAction,
         "wait": WaitAction,
+        "clear": ClearAction,
         "close_dialog": CloseDialogAction,
         "verify_text": VerifyTextAction,
         "close_window": CloseWindowAction,

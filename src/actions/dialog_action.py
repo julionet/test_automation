@@ -105,14 +105,42 @@ class CloseWindowAction(BaseAction):
         Returns:
             None
         """
+        # Se window_title especificado, usar aquela janela
         if action.window_title:
+            self.app_manager.wait_window(
+                action.window_title, 
+                timeout=action.timeout or self.app_manager.timeout
+            )
             window = self.app_manager.get_window(title=action.window_title)
         else:
-            window = self.app_manager.get_window()
+            # Caso contrário, usar janela atual (top_window)
+            window = self.app_manager.app.top_window()
         
-        window.close()
+        # Tentar fechar de várias formas
+        try:
+            # Método 1: Botão close (mais confiável)
+            window.close()
+            self.logger.info(f"Janela '{window.window_text()}' fechada com sucesso")
+        except Exception as e1:
+            self.logger.warning(f"Método 1 (close) falhou: {e1}")
+            try:
+                # Método 2: Alt+F4 (atalho de teclado)
+                window.type_keys("%{F4}")
+                self.logger.info(f"Janela fechada com Alt+F4")
+            except Exception as e2:
+                self.logger.warning(f"Método 2 (Alt+F4) falhou: {e2}")
+                try:
+                    # Método 3: Esc
+                    window.type_keys("{ESC}")
+                    self.logger.info(f"Janela fechada com ESC")
+                except Exception as e3:
+                    self.logger.warning(f"Método 3 (ESC) falhou: {e3}")
+                    raise Exception(
+                        f"Não foi possível fechar a janela. "
+                        f"close(): {e1}, Alt+F4: {e2}, ESC: {e3}"
+                    )
+        
         time.sleep(0.5)
-        
         return None
 
 

@@ -42,6 +42,7 @@ class Action:
     screenshot_on_success: bool = False
     screenshot_on_failure: bool = True
     continue_on_failure: bool = False
+    file_worker: Optional[str] = None
     
     @staticmethod
     def from_dict(data: Dict[str, Any]) -> 'Action':
@@ -57,7 +58,8 @@ class Action:
             timeout=data.get("timeout"),
             screenshot_on_success=data.get("screenshot_on_success", False),
             screenshot_on_failure=data.get("screenshot_on_failure", True),
-            continue_on_failure=data.get("continue_on_failure", False)
+            continue_on_failure=data.get("continue_on_failure", False),
+            file_worker=data.get("file_worker")
         )
 
 
