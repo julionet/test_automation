@@ -6,7 +6,7 @@
     "arguments": "",
     "startup_delay": 2,
     "backend": "uia",
-    "timeout": 10
+    "timeout": 5
   },
   "test_suites": [
     {
@@ -24,13 +24,6 @@
               "type": "wait",
               "description": "Aguardar aplicação carregar completamente",
               "duration": 2
-            },            
-            {
-              "type": "click",
-              "description": "Clicar no check edit",
-              "control": "checkEdit1",
-              "window_title": "Principal",
-              "screenshot_on_success": true
             },
             {
               "type": "click_and_wait",

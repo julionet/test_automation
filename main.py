@@ -20,7 +20,7 @@ def main():
     parser.add_argument(
         'script',
         type=str,
-        default='config/test_app_script.json',
+        default='config/test_cristal_script.json',
         nargs='?',
         help='Caminho para o arquivo JSON com o script de teste'
     )
@@ -52,6 +52,7 @@ def main():
         
         # Código de saída baseado nos resultados
         if result.failed_tests > 0 or result.error_tests > 0:
+            
             sys.exit(1)
         else:
             sys.exit(0)

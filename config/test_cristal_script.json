@@ -1,0 +1,169 @@
+{
+    "version": "1.0.0",
+    "application": {
+        "name": "Cristal Cartsys Gestão para Cartórios",
+        "path": "D:\\Github\\cristal_csharp\\Cartsys.Gestor.WFA\\Cartsys.Gestor.WFA\\bin\\Debug\\Cartsys.Cristal.exe",
+        "arguments": "",
+        "startup_delay": 3,
+        "backend": "uia",
+        "timeout": 5
+    },
+    "test_suites": [
+        {
+            "name": "TesteLogin",
+            "description": "Suite de testes da tela de login do Cristal Cartsys Gestão para Cartórios",
+            "test_cases": [
+                {
+                    "id": "TC001",
+                    "name": "Teste do usuário não informado",
+                    "description": "Valida login com usuário não informado",
+                    "enabled": true,
+                    "tags": ["login", "iniciar"],
+                     "actions": [
+                        {
+                            "type": "wait",
+                            "description": "Aguardar aplicação carregar completamente",
+                            "duration": 5
+                        },
+                        {
+                            "type": "click_and_wait",
+                            "description": "Clicar no botão Iniciar",
+                            "control": "cartsysButtonIniciar",
+                            "value": "CartsysOverlayForm",
+                            "window_title": "LoginView",
+                            "screenshot_on_success": true
+                        },
+                        {
+                            "type": "wait",
+                            "description": "Aguardar validação do login vazio",
+                            "duration": 2
+                        },
+                        {
+                            "type": "verify_text",
+                            "description": "Verificar mensagem de erro de usuário não informado",
+                            "control": "messageBoxLabel",
+                            "value": "Usuário não informado!",
+                            "screenshot_on_success": true
+                        },
+                        {
+                            "type": "click",
+                            "description": "Clicar no botão OK da mensagem de erro",
+                            "control": "messageBoxButtonOK",
+                            "screenshot_on_success": true
+                        }                        
+                     ]
+                },
+                {
+                    "id": "TC002",
+                    "name": "Teste da senha não informada",
+                    "description": "Valida login com senha não informada",
+                    "enabled": true,
+                    "tags": ["login", "iniciar"],
+                     "actions": [
+                        {
+                            "type": "type_text",
+                            "description": "Digitar o login do usuário",
+                            "control": "cartsysTextEditUsuario",
+                            "value": "admin"
+                        },
+                        {
+                            "type": "click_and_wait",
+                            "description": "Clicar no botão Iniciar",
+                            "control": "cartsysButtonIniciar",
+                            "value": "CartsysOverlayForm",
+                            "window_title": "LoginView",
+                            "screenshot_on_success": true
+                        },
+                        {
+                            "type": "wait",
+                            "description": "Aguardar validação da senha vazia",
+                            "duration": 2
+                        },
+                        {
+                            "type": "verify_text",
+                            "description": "Verificar mensagem de erro de senha não informada",
+                            "control": "messageBoxLabel",
+                            "value": "Senha não informada!",
+                            "screenshot_on_success": true
+                        },
+                        {
+                            "type": "click",
+                            "description": "Clicar no botão OK da mensagem de erro",
+                            "control": "messageBoxButtonOK",
+                            "screenshot_on_success": true
+                        }
+                     ]
+                },
+                {
+                    "id": "TC003",
+                    "name": "Teste de login/senha inválidos",
+                    "description": "Valida login/senha inválidos",
+                    "enabled": true,
+                    "tags": ["login", "iniciar"],
+                     "actions": [                        
+                        {
+                            "type": "type_text",
+                            "description": "Digitar a senha do usuário errada",
+                            "control": "cartsysTextEditSenha",
+                            "value": "senha",
+                            "screenshot_on_success": true
+                        },
+                        {
+                            "type": "click_and_wait",
+                            "description": "Clicar no botão Iniciar",
+                            "control": "cartsysButtonIniciar",
+                            "value": "CartsysOverlayForm",
+                            "window_title": "LoginView",
+                            "screenshot_on_success": true
+                        },
+                        {
+                            "type": "wait",
+                            "description": "Aguardar validação do login/senha inválidos",
+                            "duration": 2
+                        },
+                        {
+                            "type": "verify_text",
+                            "description": "Verificar mensagem de erro de login inválido",
+                            "control": "messageBoxLabel",
+                            "value": "Usuário e/ou senha inválido!",
+                            "screenshot_on_success": true
+                        },
+                        {
+                            "type": "click",
+                            "description": "Clicar no botão OK da mensagem de erro",
+                            "control": "messageBoxButtonOK",
+                            "screenshot_on_success": true
+                        }
+                     ]
+                },
+                {
+                    "id": "TC004",
+                    "name": "Teste de login com sucesso",
+                    "description": "Valida login e senha com sucesso",
+                    "enabled": true,
+                    "tags": ["login", "sucesso"],
+                     "actions": [                                                
+                        {
+                            "type": "type_text",
+                            "description": "Digitar a senha do usuário",
+                            "control": "cartsysTextEditSenha",
+                            "value": "senh@123",
+                            "screenshot_on_success": true
+                        },
+                        {
+                            "type": "click",
+                            "description": "Clicar no botão Iniciar",
+                            "control": "cartsysButtonIniciar",
+                            "screenshot_on_success": true
+                        },
+                        {
+                            "type": "wait",
+                            "description": "Aguardar validação do login/senha com sucesso",
+                            "duration": 2
+                        }
+                     ]
+                }
+            ]
+        }
+    ]
+}

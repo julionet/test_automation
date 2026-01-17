@@ -126,7 +126,7 @@ class BaseAction(ABC):
             window = self.app_manager.get_window(title=action.window_title)
         else:
             window = self.app_manager.get_window()
-        
+
         # Obter controle
         if action.control:
             # Tentar por auto_id primeiro
@@ -176,3 +176,27 @@ class BaseAction(ABC):
             self.logger.debug("Aplicação trazida para primeiro plano")
         except Exception as e:
             self.logger.warning(f"Não foi possível trazer aplicação para primeiro plano: {e}")
+
+    def _list_all_controls(self, window):
+        """
+        Lista todos os controles filhos de uma janela.
+        
+        Args:
+            window: Objeto da janela pywinauto
+            
+        Returns:
+            Lista com informações dos controles
+        """
+        controls_info = []
+        for control in window.children():
+            control_data = {
+                'auto_id': control.auto_id,
+                'title': control.title,
+                'class_name': control.class_name,
+                'control_type': control.control_type,
+                'rect': control.rectangle()
+            }
+            controls_info.append(control_data)
+            self.logger.debug(f"Controle encontrado: {control_data}")
+        
+        return controls_info
