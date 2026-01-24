@@ -5,6 +5,7 @@ from typing import Dict, Type
 
 from src.actions.base_action import BaseAction
 from src.actions.click_action import ClickAction
+from src.actions.click_label_action import ClickLabelAction
 from src.actions.double_click_action import DoubleClickAction
 from src.actions.type_action import TypeAction
 from src.actions.read_action import ReadAction
@@ -29,6 +30,7 @@ class ActionFactory:
     
     _action_map: Dict[str, Type[BaseAction]] = {
         "click": ClickAction,
+        "click_label": ClickLabelAction,
         "double_click": DoubleClickAction,
         "type_text": TypeAction,
         "read_text": ReadAction,

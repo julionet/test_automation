@@ -18,7 +18,7 @@
                     "name": "Teste do usuário não informado",
                     "description": "Valida login com usuário não informado",
                     "enabled": true,
-                    "tags": ["login", "iniciar"],
+                    "tags": ["login", "usuário", "falha"],
                      "actions": [
                         {
                             "type": "wait",
@@ -58,7 +58,7 @@
                     "name": "Teste da senha não informada",
                     "description": "Valida login com senha não informada",
                     "enabled": true,
-                    "tags": ["login", "iniciar"],
+                    "tags": ["login", "senha", "falha"],
                      "actions": [
                         {
                             "type": "type_text",
@@ -99,7 +99,7 @@
                     "name": "Teste de login/senha inválidos",
                     "description": "Valida login/senha inválidos",
                     "enabled": true,
-                    "tags": ["login", "iniciar"],
+                    "tags": ["login", "login", "senha", "falha"],
                      "actions": [                        
                         {
                             "type": "type_text",

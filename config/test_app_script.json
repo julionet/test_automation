@@ -1,12 +1,12 @@
 {
   "version": "1.0.0",
   "application": {
-    "name": "Sistema App",
-    "path": "C:\\Users\\julio\\source\\repos\\App\\App\\bin\\Debug\\app.exe",
-    "arguments": "",
-    "startup_delay": 2,
-    "backend": "uia",
-    "timeout": 5
+    "name": "Cristal Cartsys Gestão para Cartórios",
+        "path": "D:\\Github\\cristal_csharp\\Cartsys.Gestor.WFA\\Cartsys.Gestor.WFA\\bin\\Debug\\Cartsys.Cristal.exe",
+        "arguments": "",
+        "startup_delay": 3,
+        "backend": "uia",
+        "timeout": 5
   },
   "test_suites": [
     {
@@ -14,39 +14,35 @@
       "description": "Suite de testes para verificar funcionalidades básicas do Sistema App",
       "test_cases": [
         {
-          "id": "TC001",
-          "name": "Teste de botão Clique",
-          "description": "Verifica se é clicar no botão Clique do Sistema App",
-          "enabled": true,
-          "tags": ["botão", "clique"],
-          "actions": [
-            {
-              "type": "wait",
-              "description": "Aguardar aplicação carregar completamente",
-              "duration": 2
-            },
-            {
-              "type": "click_and_wait",
-              "description": "Abrir nova tela",
-              "control": "button2",
-              "value": "Detalhe",
-              "window_title": "Principal",
-              "duration": 1
-            },
-            {
-              "type": "read_text",
-              "description": "Ler o texto do label",
-              "control": "labelControl1",
-              "window_title": "Detalhe",
-              "value": "Nova mensagem de teste",
-              "screenshot_on_success": true
-            },
-            {
-              "type": "close_dialog",
-              "description": "Fechar a tela de detalhe",
-              "window_title": "Detalhe"
-            }
-          ]
+            "id": "TC005",
+            "name": "Teste de recuperação de senha",
+            "description": "Valida recuperação de senha",
+            "enabled": true,
+            "tags": ["recuperar", "senha"],
+              "actions": [     
+                {
+                    "type": "wait",
+                    "description": "Aguardar aplicação carregar completamente",
+                    "duration": 5
+                },
+                {
+                    "type": "type_text",
+                    "description": "Digitar o login do usuário",
+                    "control": "cartsysTextEditUsuario",
+                    "value": "admin"
+                },
+                {
+                    "type": "click_label",
+                    "description": "Clicar no link Esqueci minha senha",
+                    "value": "Esqueci minha senha",
+                    "screenshot_on_success": true
+                },
+                {
+                    "type": "wait",
+                    "description": "Aguardar carregamento da tela de recuperação de senha",
+                    "duration": 2
+                }
+              ]
         }
       ]
     }

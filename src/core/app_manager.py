@@ -7,7 +7,6 @@ from typing import Optional
 from pathlib import Path
 from pywinauto import Application as PyWinAutoApp
 from pywinauto.findwindows import ElementNotFoundError
-from pywinauto.timings import TimeoutError
 
 try:
     import win32gui
@@ -232,7 +231,7 @@ class AppManager:
                     hwnd = window.handle
                     # Mostrar e ativar a janela
                     win32gui.ShowWindow(hwnd, win32con.SW_SHOW)
-                    win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
+                    #win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
                     win32gui.SetForegroundWindow(hwnd)
                     win32gui.BringWindowToTop(hwnd)
                     time.sleep(0.2)
