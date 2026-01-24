@@ -68,7 +68,7 @@ Example: [config/test_app_script.json](config/test_app_script.json)
 - `app_manager.find_control(action)` wraps both backends
 
 ### 2b. Window Focus Management
-- Use `WindowUtils.bring_window_to_foreground(window)` from [src/utils/window_utils.py](src/utils/window_utils.py)
+- Use `app_manager.bring_to_foreground(window)` method from [src/core/app_manager.py](src/core/app_manager.py#L200)
 - Combines `set_focus()` + win32 APIs (`ShowWindow`, `SetForegroundWindow`, `BringWindowToTop`)
 - Critical for reliability with multi-window scenarios or background apps
 
@@ -80,7 +80,7 @@ Example: [config/test_app_script.json](config/test_app_script.json)
 ### 4. Error Handling
 - **Skip Recoverable Errors**: Set `continue_on_failure=True` for non-blocking actions
 - **Fail-Fast**: Default behavior stops suite on error
-- **Always Cleanup**: `TestExecutor` ensures app closure via `finally` block in [src/core/test_executor.py#L80-L90](src/core/test_executor.py#L80-L90)
+- **Always Cleanup**: `TestExecutor` ensures app closure via `finally` block in [src/core/test_executor.py](src/core/test_executor.py#L80-L90)
 
 ### 5. Logging Inheritance
 - All classes accept `logger: TestLogger` in `__init__()`
@@ -110,7 +110,7 @@ Example: [config/test_app_script.json](config/test_app_script.json)
 ### Debugging Test Failures
 1. Check `logs/test_run_<timestamp>.log` for action-level errors
 2. Review `screenshots/failure_*.png` for visual state at failure
-3. Examine [src/core/app_manager.py#40-70](src/core/app_manager.py#40-70) — control finding logic
+3. Examine [src/core/app_manager.py](src/core/app_manager.py#L40-L70) — control finding logic
 
 ### Adding Application Support
 - Update [src/models/test_script.py](src/models/test_script.py) `Application` dataclass if new fields needed
